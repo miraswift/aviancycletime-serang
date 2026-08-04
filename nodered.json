@@ -1,0 +1,246 @@
+[
+    {
+        "id": "5ab667efce550d90",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a0dd19a7efb23b9d",
+        "type": "mqtt in",
+        "z": "5ab667efce550d90",
+        "name": "",
+        "topic": "Buduran/Report/Equipment",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "5c8425ee23c5aa2e",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 210,
+        "y": 340,
+        "wires": [
+            [
+                "48e44afd7c92e733"
+            ]
+        ]
+    },
+    {
+        "id": "48e44afd7c92e733",
+        "type": "function",
+        "z": "5ab667efce550d90",
+        "name": "Array Data Equipment",
+        "func": "msg.payload = {\n    \"code_plant\": msg.payload.code_plant,\n    \"type_equipment\": msg.payload.type_equipment,\n    \"no_spk\": msg.payload.no_spk,\n    \"no_batch\": msg.payload.no_batch,\n    \"code_formula\": msg.payload.code_formula,\n    \"name_equipment\": msg.payload.name_equipment,\n    \"status_equipment\": msg.payload.status_equipment,\n    \"line_equipment\": msg.payload.line_equipment,\n    \"target\": msg.payload.target,\n    \"actual\": msg.payload.actual,\n    \"date_equipment\": msg.payload.date_equipment,\n    \"time_equipment\": msg.payload.time_equipment\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 340,
+        "wires": [
+            [
+                "5fac0a98ef48d28f",
+                "e3421f65fedc701b"
+            ]
+        ]
+    },
+    {
+        "id": "5fac0a98ef48d28f",
+        "type": "http request",
+        "z": "5ab667efce550d90",
+        "name": "POST Data Equipment",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://localhost:8080/equipment/create",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 920,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9ef5495947662b22",
+        "type": "http request",
+        "z": "5ab667efce550d90",
+        "name": "GET Server Status",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://localhost:8080/status",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 550,
+        "y": 180,
+        "wires": [
+            [
+                "066cc858d9b1c971"
+            ]
+        ]
+    },
+    {
+        "id": "066cc858d9b1c971",
+        "type": "mqtt out",
+        "z": "5ab667efce550d90",
+        "name": "",
+        "topic": "Buduran/Report/Status",
+        "qos": "2",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "5c8425ee23c5aa2e",
+        "x": 880,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "a85ff95ab604e8d9",
+        "type": "inject",
+        "z": "5ab667efce550d90",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c9c6ae58c5999093",
+        "type": "debug",
+        "z": "5ab667efce550d90",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 340,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "2369071fc2dbaf27",
+        "type": "debug",
+        "z": "5ab667efce550d90",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "6325544021b96251",
+        "type": "debug",
+        "z": "5ab667efce550d90",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "e3421f65fedc701b",
+        "type": "http request",
+        "z": "5ab667efce550d90",
+        "name": "POST Data Log Equipment",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://localhost:8080/equipment/createlog",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 940,
+        "y": 280,
+        "wires": [
+            [
+                "6325544021b96251"
+            ]
+        ]
+    },
+    {
+        "id": "5c8425ee23c5aa2e",
+        "type": "mqtt-broker",
+        "name": "MqttNew",
+        "broker": "10.10.4.96",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "5",
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]
