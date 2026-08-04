@@ -89,9 +89,10 @@ class EquipmentModel extends Model
     public function getWeighingDischargeLast($no_batch)
     {
         $this->select('MAX(id_equipment) AS id_equipment');
-        $this->where('name_equipment', 'WEIGHING DISCHARGE');
+        $this->like('name_equipment', 'DISSCHARGE WEIGHING');
         $this->where('status_equipment', 'OFF');
         $this->where('no_batch', $no_batch);
+        $this->orderBy('time_equipment', 'desc');
 
         return $this->first();
     }
@@ -99,9 +100,10 @@ class EquipmentModel extends Model
     public function getDischargeOn($no_batch)
     {
         // $this->select('MAX(id_equipment) AS id_equipment');
-        $this->where('name_equipment', 'WEIGHING DISCHARGE');
+        $this->like('name_equipment', 'DISSCHARGE WEIGHING');
         $this->where('status_equipment', 'ON');
         $this->where('no_batch', $no_batch);
+        $this->orderBy('time_equipment', 'asc');
 
         return $this->first();
     }
@@ -119,7 +121,7 @@ class EquipmentModel extends Model
     public function getDischargeUhOff($no_batch)
     {
         // $this->select('MAX(id_equipment) AS id_equipment');
-        $this->where('name_equipment', 'UNDERHOPPER DISCHARGE');
+        $this->where('name_equipment', 'DISSCHARGE UNDERHOPPER');
         $this->where('status_equipment', 'OFF');
         $this->where('no_batch', $no_batch);
 
