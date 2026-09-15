@@ -105,7 +105,7 @@
                 $no_batch = $batch['no_batch'];
 
                 // Material Time (Un-used because material is pararel)
-                $dossings = $equipmentModel->where('no_batch', $no_batch)->where('type_equipment', 'DOSSING')->findAll();
+                $dossings = $equipmentModel->where('no_batch', $no_batch)->where('type_equipment', 'FEEDING')->findAll();
                 $totalMaterialTime = 0;
                 foreach ($dossings as $dossingTime) {
                     if ($dossingTime['status_equipment'] == 'OFF') {

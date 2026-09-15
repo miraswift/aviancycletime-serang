@@ -59,7 +59,7 @@ class EquipmentModel extends Model
     public function getDossingFirst($no_batch)
     {
         $this->select('MIN(id_equipment) AS id_equipment');
-        $this->where('type_equipment', 'DOSSING');
+        $this->where('type_equipment', 'FEEDING');
         $this->where('status_equipment', 'ON');
         $this->where('no_batch', $no_batch);
 
@@ -69,7 +69,7 @@ class EquipmentModel extends Model
     public function getDossingLast($no_batch)
     {
         $this->select('MAX(id_equipment) AS id_equipment');
-        $this->where('type_equipment', 'DOSSING');
+        $this->where('type_equipment', 'FEEDING');
         $this->where('status_equipment', 'OFF');
         $this->where('no_batch', $no_batch);
 
