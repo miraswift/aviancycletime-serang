@@ -298,40 +298,42 @@
                     }
                 }
                 ?>
-                <tr>
-                    <th colspan="5" class="text-left">
-                        <span>Batch: <?= $batch['no_batch'] ?></span>
-                        <br>
-                        <span>Feeding: <?= $resultFeedingTime ?></span>
-                        <br>
-                        <span>Mixing: <?= $intervalTotalMixingTime ?></span>
-                        <br>
-                        <?php if ((float)$resultbatchCycleTime > 0): ?>
-                            <span>Cycle Time: <?= $resultFeedingTime ?> (<?= number_format(60 / (float)$resultbatchCycleTime, 2, '.', ',') ?> Batch / jam)</span>
-                        <?php endif; ?>
-                        <?php if ((float)$resultbatchCycleTime <= 0): ?>
-                            <span>Cycle Time: <div class="text-red">BATCH DATA ERROR</div></span>
-                        <?php endif; ?>
-                        <br>
-                        <span>Total Time: <?= $resultCycleTime ?></span>
-                        <br>
-                        <span>Delay: <?= $resultDelayTime ?></span>
-                        <span>Delay Mixing To Underhopper: <?= $underhopperFull && $underhopperDischargeOn ? $resultDowntimeMixingToUnderhopper : 0 ?></span>
-                    </th>
-                </tr>
-                <?php foreach ($onEquipments as $onEquipment): ?>
-                    <?php
-                    $offEquipment = $equipmentModel->where('no_batch', $no_batch)->where('name_equipment', $onEquipment['name_equipment'])->where('status_equipment', 'OFF')->first();
-                    ?>
-                    <tr class="border">
-                        <td class="border"><?= $onEquipment['name_equipment'] ?></td>
-                        <td class="border text-center"><?= $onEquipment['line_equipment'] ?></td>
-                        <td class="border text-center"><?= $onEquipment['time_equipment'] ?></td>
-                        <td class="border text-center"><?= $offEquipment ? $offEquipment['time_equipment'] : 'Still running' ?></td>
-                        <td class="border text-center"><?= $offEquipment ? $offEquipment['duration_equipment'] : '-' ?></td>
-                        <td class="border text-center"><?= $offEquipment ? number_format($offEquipment['actual_equipment'], 0, '.', ',') : '-' ?></td>
+                <?php if ((float)$resultbatchCycleTime > 0): ?>
+                    <tr>
+                        <th colspan="5" class="text-left">
+                            <span>Batch: <?= $batch['no_batch'] ?></span>
+                            <br>
+                            <span>Feeding: <?= $resultFeedingTime ?></span>
+                            <br>
+                            <span>Mixing: <?= $intervalTotalMixingTime ?></span>
+                            <br>
+                            <?php if ((float)$resultbatchCycleTime > 0): ?>
+                                <span>Cycle Time: <?= $resultFeedingTime ?> (<?= number_format(60 / (float)$resultbatchCycleTime, 2, '.', ',') ?> Batch / jam)</span>
+                            <?php endif; ?>
+                            <?php if ((float)$resultbatchCycleTime <= 0): ?>
+                                <span>Cycle Time: <div class="text-red">BATCH DATA ERROR</div></span>
+                            <?php endif; ?>
+                            <br>
+                            <span>Total Time: <?= $resultCycleTime ?></span>
+                            <br>
+                            <span>Delay: <?= $resultDelayTime ?></span>
+                            <span>Delay Mixing To Underhopper: <?= $underhopperFull && $underhopperDischargeOn ? $resultDowntimeMixingToUnderhopper : 0 ?></span>
+                        </th>
                     </tr>
-                <?php endforeach; ?>
+                    <?php foreach ($onEquipments as $onEquipment): ?>
+                        <?php
+                        $offEquipment = $equipmentModel->where('no_batch', $no_batch)->where('name_equipment', $onEquipment['name_equipment'])->where('status_equipment', 'OFF')->first();
+                        ?>
+                        <tr class="border">
+                            <td class="border"><?= $onEquipment['name_equipment'] ?></td>
+                            <td class="border text-center"><?= $onEquipment['line_equipment'] ?></td>
+                            <td class="border text-center"><?= $onEquipment['time_equipment'] ?></td>
+                            <td class="border text-center"><?= $offEquipment ? $offEquipment['time_equipment'] : 'Still running' ?></td>
+                            <td class="border text-center"><?= $offEquipment ? $offEquipment['duration_equipment'] : '-' ?></td>
+                            <td class="border text-center"><?= $offEquipment ? number_format($offEquipment['actual_equipment'], 0, '.', ',') : '-' ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             <?php endforeach; ?>
         </table>
     </div>
